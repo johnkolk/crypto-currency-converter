@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import {CryptoTable} from "./components/CryptoTable";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -8,14 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
-import Avatar from '@material-ui/core/Avatar';
+import {TCoin} from './types/types'
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 
 const currencies = [
     {
@@ -56,23 +51,7 @@ const useStyles = makeStyles((theme) => ({
     selectBlock: {
         flexGrow: 1,
     },
-    table: {
-        minWidth: 650,
-    },
-    smallAvatar: {
-        width: theme.spacing(3),
-        height: theme.spacing(3),
-    },
 }));
-
-type TCoin = {
-    id: number;
-    name: string;
-    fullName: string;
-    imgUrl: string;
-    price: number;
-    volume24Hour: number;
-};
 
 function App() {
     const classes = useStyles();
@@ -102,45 +81,7 @@ function App() {
         <Container className={classes.root} maxWidth="lg">
             <Grid container spacing={3}>
                 <Grid item xs={8}>
-                    <TableContainer component={Paper}>
-                        <Table
-                            className={classes.table}
-                            aria-label="simple table"
-                        >
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>
-                                        Logo
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        Name
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        Full Name
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        Price, $
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        Volume 24h, $
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {allCoins.map((coin) => (
-                                    <TableRow key={coin.id}>
-                                        <TableCell component="th" scope="row">
-                                            <Avatar className={classes.smallAvatar} alt={coin.name} src={coin.imgUrl} />
-                                        </TableCell>
-                                        <TableCell align="right">{coin.name}</TableCell>
-                                        <TableCell align="right">{coin.fullName}</TableCell>
-                                        <TableCell align="right">${coin.price}</TableCell>
-                                        <TableCell align="right">${coin.volume24Hour}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                    <CryptoTable coinsList={allCoins} />
                 </Grid>
 
                 <Grid item xs={4}>
